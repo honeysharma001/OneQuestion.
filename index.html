@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>One Question ❤️</title>
+
+<style>
+:root{
+    --pink1:#ff4d6d;
+    --pink2:#ff758f;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    background:linear-gradient(135deg,var(--pink1),var(--pink2));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:white;
+}
+
+/* Glass Card */
+.box{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter: blur(14px);
+    padding:40px 35px;
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+    animation:pop 1s ease;
+    position:relative;
+    max-width:380px;
+    width:90%;
+}
+
+@keyframes pop{
+    from{transform:scale(0.6); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+h1{
+    font-size:2.4rem;
+    margin-bottom:12px;
+    text-shadow:0 0 12px rgba(255,255,255,0.5);
+}
+
+p{
+    font-size:1.15rem;
+    margin-bottom:20px;
+    line-height:1.6;
+    opacity:0.95;
+}
+
+h2{
+    margin-bottom:25px;
+    font-weight:500;
+}
+
+.buttons{
+    position:relative;
+    height:60px;
+}
+
+button{
+    padding:12px 30px;
+    font-size:1rem;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.35s ease;
+    position:relative;
+}
+
+.yes{
+    background:white;
+    color:var(--pink1);
+    box-shadow:0 10px 25px rgba(255,255,255,0.4);
+}
+
+.yes:hover{
+    transform:scale(1.12);
+    box-shadow:0 0 30px white;
+}
+
+.no{
+    background:#ff1e56;
+    color:white;
+    position:absolute;
+    left:65%;
+    top:0;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    font-size:18px;
+    animation:float 7s linear infinite;
+    opacity:0.8;
+    pointer-events:none;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh) scale(0.6); opacity:0;}
+    30%{opacity:1;}
+    100%{transform:translateY(-10vh) scale(1.3); opacity:0;}
+}
+
+/* YES SCREEN */
+.success{
+    font-size:3rem;
+    text-align:center;
+    animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 10px white;}
+    to{text-shadow:0 0 35px white;}
+}
+
+/* Mobile */
+@media(max-width:480px){
+    h1{font-size:2rem;}
+    p{font-size:1.05rem;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="card">
+    <h1 id="name">Hey Khushi❤️</h1>
+
+    <p id="typing"></p>
+
+    <h2>Will you be mine? 💍</h2>
+
+    <div class="buttons">
+        <button class="yes" onclick="yes()">Yes 💖</button>
+        <button class="no" onmouseenter="moveNo()">No 🙈</button>
+    </div>
+</div>
+
+<script>
+/* TYPEWRITER */
+const text = "I tried to think of the perfect words…\nBut my heart already chose you.";
+let i = 0;
+function typeText(){
+    if(i < text.length){
+        document.getElementById("typing").innerHTML +=
+            text[i] === "\n" ? "<br>" : text[i];
+        i++;
+        setTimeout(typeText, 40);
+    }
+}
+typeText();
+
+/* YES ACTION */
+function yes(){
+    document.body.innerHTML = `
+    <div class="success">
+        I knew it 😍❤️<br>
+        You just made my world brighter ✨<br>
+        I love you😍❤️
+    </div>`;
+    for(let i=0;i<40;i++) createHeart();
+}
+
+/* SMART NO BUTTON */
+function moveNo(){
+    const btn = document.querySelector(".no");
+    const x = Math.random()*60;
+    const y = Math.random()*40;
+    btn.style.left = x + "%";
+    btn.style.top = y + "px";
+}
+
+/* FLOATING HEARTS */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (Math.random()*3 + 4) + "s";
+    heart.style.fontSize = (Math.random()*20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createHeart,600);
+</script>
+
+</body>
+</html>
